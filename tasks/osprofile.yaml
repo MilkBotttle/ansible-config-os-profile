@@ -1,0 +1,14 @@
+# - debug:
+#     msg: >
+#       crudini --set {{ item }} profiler enabled true
+#       crudini --set {{ item }} profiler trace_sqlalchemy true
+#       crudini --set {{ item }} profiler connection_string {{ connection_string }}
+#       crudini --set {{ item }} profiler hmac_keys {{ hmac_keys }}
+#   with_items: "{{ paths }}"
+- name: Config OSprofile Config {{item}}
+  shell: |
+    crudini --set {{ item }} profiler enabled true
+    crudini --set {{ item }} profiler trace_sqlalchemy true
+    crudini --set {{ item }} profiler connection_string {{ connection_string }}
+    crudini --set {{ item }} profiler hmac_keys {{ hmac_keys }}
+  with_items: "{{ paths }}"

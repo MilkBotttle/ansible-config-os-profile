@@ -1,0 +1,12 @@
+- hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Read vars
+      include_vars: vars/roles.yaml
+
+    - name: generate Control playbook
+      template:
+        src: templates/profile-config.yaml.j2
+        dest: controller_profile_config.yaml
+        variable_start_string: "<<"
+        variable_end_string: ">>"

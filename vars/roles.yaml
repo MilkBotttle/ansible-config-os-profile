@@ -1,0 +1,18 @@
+# This variable yaml include the roles when deploy overcloud used. Modify the
+# list elements for your overcloud. The example:
+# When deploy controller use **CustomController**, compute use **Compute**
+# Controller_roles:
+#   - CustomController
+# Compute_roles:
+#   - Compute
+#
+# Don't Edit **Controller_roles** and **Compute_rolle**, those are ansible used
+# key. Only edit the list elements.
+
+
+
+Controller_roles:
+  - CustomController
+Compute_roles:
+  - Compute
+

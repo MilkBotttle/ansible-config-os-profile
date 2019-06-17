@@ -1,0 +1,3 @@
+ansible-errors.json
+*.log
+*.swp

@@ -1,0 +1,25 @@
+{% for role in Controller_roles %}
+- hosts: << role >>
+  gather_facts: no
+  serial: 1
+  tasks:
+    - include_vars:
+        dir: vars
+        extensions: [yaml]
+
+    - name: << role >> Config Servces
+      include_tasks: tasks/osprofile.yaml
+      vars:
+        paths: "{{ item.value.paths }}"
+      with_dict: "{{ contoller_services }}"
+      loop_control:
+        label: "Add osprofile config to {{item.key}}"
+
+    - name: << role >> Restart service
+      include_tasks: tasks/restart-service.yaml
+      vars:
+        services: "{{ item.value.restart }}"
+      with_dict: "{{ contoller_services }}"
+      loop_control:
+        label: "Restart {{ item.key }}"
+{% endfor %}

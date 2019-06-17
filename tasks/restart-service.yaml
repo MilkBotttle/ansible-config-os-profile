@@ -1,0 +1,35 @@
+# - name: debug Restart service
+#   debug:
+#     msg: >
+#       s=$(paunch list -c container -f value | grep {{ item }})
+#       docker restart $s
+#       while true;do
+#         status=$(paunch list -c container -c status -f value | grep {{ item }}| awk '{print $2}')
+#         if [ "$status" = 'running' ];then
+#             echo "Restart {{ item }} complete !"
+#             exit 0
+#         fi
+#       done
+#   with_items: "{{ services }}"
+- name: Restart service
+  shell: |
+    s=$(paunch list -c container -f value | grep -w {{ item }})
+    if [ "x$s" = "x" ];then
+      echo "{{ item }} not found in paunch list !"
+      exit 1
+    fi
+    docker restart $s
+    while true;do
+      status=$(paunch list -c container -c status -f value | grep -w {{ item }}| awk '{print $2}')
+      if [ "$status" = 'running' ];then
+          health=$(docker ps | grep -w "$s" | grep healthy | wc -l)
+          echo
+          if [ $health -eq 1 ];then
+            echo "Restart {{ item }} complete !"
+            exit 0
+          fi
+      fi
+      sleep 1
+    done
+  ignore_errors: yes
+  with_items: "{{ services }}"

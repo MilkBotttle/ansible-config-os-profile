@@ -1,0 +1,47 @@
+- hosts: Control
+  gather_facts: no
+  serial: 1
+  tasks:
+    - include_vars:
+        dir: vars
+        extensions: [yaml]
+
+    - name: "Config Servces"
+      include_tasks: tasks/osprofile.yaml
+      vars:
+        paths: "{{ item.value.paths }}"
+      with_dict: "{{ contoller_services }}"
+      loop_control:
+        label: "Add osprofile config to {{item.key}}"
+
+    - name: Restart service
+      include_tasks: tasks/restart-service.yaml
+      vars:
+        services: "{{ item.value.restart }}"
+      with_dict: "{{ contoller_services }}"
+      loop_control:
+        label: "Restart {{ item.key }}"
+
+# - hosts: Compute
+#   gather_facts: no
+#   serial: "10%"
+#   tasks:
+#     - include_vars:
+#         dir: vars
+#         extensions: [yaml]
+#
+#     - name: "Config Servces"
+#       include_tasks: tasks/osprofile.yaml
+#       vars:
+#         paths: "{{ item.value.paths }}"
+#       with_dict: "{{ compute_services }}"
+#       loop_control:
+#         label: "{{item.key}}"
+#     - name: Restart service
+#       include_tasks: tasks/restart-service.yaml
+#       vars:
+#         services: "{{ item.value.restart }}"
+#       with_dict: "{{ compute_services }}"
+#       ignore_errors: yes
+#       loop_control:
+#         label: "Restart {{ item.key }}"

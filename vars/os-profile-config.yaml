@@ -1,0 +1,2 @@
+hmac_keys: 123
+connection_string: 'redis://:NXue3i52yYjH05pKFIAlk2uBl@172.21.1.160:6379'

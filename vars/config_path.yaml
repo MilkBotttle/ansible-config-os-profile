@@ -1,0 +1,81 @@
+contoller_services:
+  gnocchi:
+    paths:
+      - '/var/lib/config-data/puppet-generated/gnocchi/etc/gnocchi/gnocchi.conf'
+    restart:
+      - 'gnocchi_statsd'
+      - 'gnocchi_api'
+      - 'gnocchi_metricd'
+  nova:
+    paths:
+      - '/var/lib/config-data/puppet-generated/nova_placement/etc/nova/nova.conf'
+      - '/var/lib/config-data/puppet-generated/nova/etc/nova/nova.conf'
+      - '/var/lib/config-data/puppet-generated/nova_metadata/etc/nova/nova.conf'
+    restart:
+      - 'nova_api'
+      - 'nova_conductor'
+      - 'nova_vnc_proxy'
+      - 'nova_consoleauth'
+      - 'nova_scheduler'
+
+  aodh:
+    paths:
+      - '/var/lib/config-data/puppet-generated/aodh/etc/aodh/aodh.conf'
+    restart:
+      - 'aodh_api'
+      - 'aodh_evaluator'
+      - 'aodh_listener'
+      - 'aodh_notifier'
+
+  heat:
+    paths:
+      - '/var/lib/config-data/puppet-generated/heat_api/etc/heat/heat.conf'
+      - '/var/lib/config-data/puppet-generated/heat/etc/heat/heat.conf'
+      - '/var/lib/config-data/puppet-generated/heat_api_cfn/etc/heat/heat.conf'
+    restart:
+      - 'heat_api'
+      - 'heat_api_cfn'
+      - 'heat_engine'
+
+  keystone:
+    paths:
+      - '/var/lib/config-data/puppet-generated/keystone/etc/keystone/keystone.conf'
+    restart:
+      - 'keystone'
+  glance_api:
+    paths:
+      - '/var/lib/config-data/puppet-generated/glance_api/etc/glance/glance-api.conf'
+    restart:
+      - 'glance_api'
+
+  ceilometer:
+    paths:
+      - '/var/lib/config-data/puppet-generated/ceilometer/etc/ceilometer/ceilometer.conf'
+    restart:
+      - 'ceilometer_agent_central'
+      - 'ceilometer_agent_notification'
+
+  cinder:
+    paths:
+      - '/var/lib/config-data/puppet-generated/cinder/etc/cinder/cinder.conf'
+    restart:
+      - 'cinder_api'
+      - 'cinder_scheduler'
+
+  neutron:
+    paths:
+      - '/var/lib/config-data/puppet-generated/neutron/etc/neutron/neutron.conf'
+    restart:
+      - 'neutron_api'
+
+compute_services:
+  ceilometer:
+    paths:
+      - '/var/lib/config-data/puppet-generated/ceilometer/etc/ceilometer/ceilometer.conf'
+    restart:
+      - 'ceilometer_agent_compute'
+  nova:
+    paths:
+      - '/var/lib/config-data/puppet-generated/nova_libvirt/etc/nova/nova.conf'
+    restart:
+      - 'nova_compute'
