@@ -2,6 +2,7 @@
 ## Introduction
 This document details using Ansible to config deployed overcloud enable os-profiler.
 More information about os-profiler follow this [link](https://docs.openstack.org/osprofiler/latest/)
+
 ## Configuration recommand
 The following minimum configuration is recommended.
 ```
@@ -28,7 +29,7 @@ pipelining = True
 ```
 tripleo-ansible-inventory --ansible_ssh_user heat-admin \
                           --config-file ansible.cfg \
-                          --static-yaml-inventory inventory.yaml\
+                          --static-yaml-inventory inventory.yaml \
                           --plan rockycloud                          
 ```
 2. Edit variable file `vars/roles.yaml` for overcloud role.
@@ -40,6 +41,5 @@ ansible-playbook generate-playbook.yaml
 ```
 bash config-os-profiler.sh
 ```
-## Advance usage
 ## Limitation
 * This playbook only works when overcloud deployed.
