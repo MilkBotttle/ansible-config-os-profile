@@ -3,7 +3,7 @@
 This document details using Ansible to config deployed overcloud enable os-profiler.
 More information about os-profiler follow this [link](https://docs.openstack.org/osprofiler/latest/)
 
-## Configuration recommand
+## Ansible configuration recommand
 The following minimum configuration is recommended.
 ```
 [defaults]
@@ -24,7 +24,7 @@ remote_user = heat-admin
 ssh_args = -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -o ControlMaster=auto -o ControlPersist=30m -o ServerAliveInterval=5 -o ServerAliveCountMax=5
 pipelining = True
 ```
-## How to use
+## Start set os-profiler on overcloud controller
 1. Generate inventory file with overcloud tool.
 ```
 tripleo-ansible-inventory --ansible_ssh_user heat-admin \
@@ -33,11 +33,12 @@ tripleo-ansible-inventory --ansible_ssh_user heat-admin \
                           --plan rockycloud                          
 ```
 2. Edit variable file `vars/roles.yaml` for overcloud role.
-3. Generate playbook
+3. Set current redis connection info in `vars/os-profile-config.yaml`
+4. Generate playbook
 ```
 ansible-playbook generate-playbook.yaml
 ```
-4. Config os-profiler
+5. Config os-profiler with script
 ```
 bash config-os-profiler.sh
 ```
