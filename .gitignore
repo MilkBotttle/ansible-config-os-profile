@@ -1,3 +1,4 @@
 ansible-errors.json
+inventory.yaml
 *.log
 *.swp
